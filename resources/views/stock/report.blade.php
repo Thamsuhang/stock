@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('pageTitle', 'Generate Report'));
 @section('content')
+
     <script>
         var stocksStartInDay = <?= isset($finalArray['data-set']['start']['stocksIn']['month']) && $finalArray['data-set']['start']['stocksIn']['month'] !== '' ? json_encode($finalArray['data-set']['start']['stocksIn']['month']) : '' ?>;
         var quantityStart = <?= isset($finalArray['data-set']['start']['stocksIn']['quantity']) && $finalArray['data-set']['start']['stocksIn']['quantity'] !== '' ? json_encode($finalArray['data-set']['start']['stocksIn']['quantity']) : '' ?>;
@@ -76,15 +77,15 @@
                     </div>
                     <div class = "card-body" id = "capture">
                         <div class = "row" style = "background-color: white">
-                            <div class = "col-4" style = "display: flex; justify-content: center">
-                                <div style = "max-width: 400px;">
+                            <div class = "col-5" style = "display: flex; justify-content: center">
+                                <div style = "max-width: 600px;">
                                     <p>
                                         PieChart of total Stockins in <?= isset($finalArray['start_year']) && $finalArray['start_year'] !== '' ? date('M, Y', strtotime($finalArray['start_year'])) : '' ?>
                                     </p>
-                                    <canvas id = "myChart" width = "400" height = "400"></canvas>
+                                    <canvas id = "myChart" width = "600" height = "600"></canvas>
                                 </div>
                             </div>
-                            <div class = "col-4">
+                            <div class = "col-2">
                                 <div class = "card text-white bg-primary">
                                     <div class = "card-body">
                                         <div class = "text-muted text-right mb-4">
@@ -102,12 +103,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class = "col-4" style = "display: flex; justify-content: center">
-                                <div style = "max-width: 400px;">
+                            <div class = "col-5" style = "display: flex; justify-content: center">
+                                <div style = "max-width: 600px;">
                                     <p>
                                         PieChart of total Stockins in <?= isset($finalArray['end_year']) && $finalArray['end_year'] !== '' ? date('M, Y', strtotime($finalArray['end_year'])) : '' ?>
                                     </p>
-                                    <canvas id = "myChart1" width = "400" height = "400"></canvas>
+                                    <canvas id = "myChart1" width = "600" height = "600"></canvas>
                                 </div>
                             </div>
                             <div class = "col-12 mt-5">

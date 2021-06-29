@@ -73,7 +73,7 @@ $(document).ready(function () {
                             }
                         }
                     },
-                    className: 'btn btn-success',
+                    className: 'btn btn-danger',
                     footer: true
                     },
                 {
@@ -83,7 +83,7 @@ $(document).ready(function () {
                     exportOptions: {
                         columns: "thead th:not(.noExport)"
                     },
-                    className: 'btn btn-success',
+                    className: 'btn btn-primary',
                     footer: true
                 },
                 {
@@ -188,7 +188,9 @@ $(document).ready(function () {
     });
     $(function () {
         labelText=[];
+        labelText1=[];
         valueNumber=[];
+        valueNumber1=[];
         function getLabels(data)
         {
             $.each(data, function (i, value) {
@@ -205,6 +207,25 @@ $(document).ready(function () {
             });
             console.log(valueNumber);
             return valueNumber;
+        }
+        labelText=[];
+        valueNumber=[];
+        function getLabels1(data)
+        {
+            $.each(data, function (i, value) {
+                // var a = new Date(i);
+                labelText1.push(value);
+                // valueNumber.push(value);
+            });
+
+            return labelText1;
+        }
+        function getData1(data) {
+            $.each(data, function (i, value) {
+                valueNumber1.push(value);
+            });
+            console.log(valueNumber1);
+            return valueNumber1;
         }
         var ctx = document.getElementById('myChart');
         if (typeof ctx !== "undefined" && !($.isEmptyObject(ctx))) {
@@ -248,10 +269,10 @@ $(document).ready(function () {
             var myChart1 = new Chart(ctx1, {
                 type: 'pie',
                 data: {
-                    labels: getLabels(stocksEndInDay),
+                    labels: getLabels1(stocksEndInDay),
                     datasets: [{
                         label: 'No of stock quantities',
-                        data: getData(quantityEnd),
+                        data: getData1(quantityEnd),
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

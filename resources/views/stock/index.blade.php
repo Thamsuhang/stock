@@ -7,7 +7,7 @@
             <div class = "col-md-12">
                 <div class = "card">
                     <div class = "card-header table-header">
-                        <a href = "{{route('stock-out')}}" class="btn btn-sm btn-secondary" style="float: right"><i class="fa fa-arrow-left"></i> Go Back</a>
+                        <a href = "{{route('stock-out')}}" class="btn btn-sm btn-secondary" style="float: right"><i class="fa fa-arrow-left"></i> Select another warehouse</a>
                         {{ __('All Stocsk Under').' '.ucfirst($warehouses['name']) }}
                     </div>
                     <div class = "card-body">
@@ -97,7 +97,7 @@
                                         <tr>
                                             <th>BatchId</th>
                                             <th>Product Name</th>
-                                            <th style = "width: 45px">Product quantity</th>
+                                            <th style = "width: 100px">Product quantity</th>
                                             <th>Year</th>
                                             <th class = "noExport text-center">Action</th>
                                             <th class="d-none"></th>
