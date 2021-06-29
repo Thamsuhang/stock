@@ -18,13 +18,13 @@
                                     </div>
                                     <div class = "card-body row text-center">
                                         <div class = "col">
-                                            <div class = "text-value-xl">{{$stats['stocksIn']}}</div>
-                                            <div class = "text-uppercase text-muted small">Total StocksIn (active)</div>
+                                            <div class = "text-value-xl">{{$stats['stocksInThisYear']}}</div>
+                                            <div class = "text-uppercase text-muted small">Total StocksIn ({{date('Y')}})</div>
                                         </div>
                                         <div class = "c-vr"></div>
                                         <div class = "col">
-                                            <div class = "text-value-xl">{{$stats['stocksOut']}}</div>
-                                            <div class = "text-uppercase text-muted small">Total StocksOut (Active)</div>
+                                            <div class = "text-value-xl">{{$stats['totalStocks']}}</div>
+                                            <div class = "text-uppercase text-muted small">Total StocksOut</div>
                                         </div>
                                     </div>
                                 </div>
