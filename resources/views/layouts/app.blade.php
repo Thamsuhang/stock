@@ -35,6 +35,12 @@
                 margin: 1.75rem auto;
             }
         }
+        @media print {
+            /* styling goes here */
+            .noPrint {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class = "c-app">
@@ -280,7 +286,7 @@
     </div>
 </div>
 <div class = "c-wrapper">
-    <header class = "c-header c-header-light c-header-fixed">
+    <header class = "c-header c-header-light c-header-fixed noPrint">
         <button class = "c-header-toggler c-class-toggler d-lg-none mfe-auto" type = "button" data-target = "#sidebar" data-class = "c-sidebar-show">
             <svg class = "c-icon c-icon-lg">
                 <use xlink:href = "vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
@@ -546,6 +552,9 @@
 <script src = "https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 <script src = "https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>
 <script src = "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js" integrity="sha512-jzL0FvPiDtXef2o2XZJWgaEpVAihqquZT/tT89qCVaxVuHwJ/1DFcJ+8TBMXplSJXE8gLbVAUv+Lj20qHpGx+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src = "vendors/@coreui/chartjs/js/chartjs-bundel.js"></script>
 <script src = "{{asset('js/utils.js')}}"></script>

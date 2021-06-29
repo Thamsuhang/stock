@@ -42,6 +42,7 @@ class StockController extends Controller {
         $stocksOut = Stock::with('warehouses', 'products')->where('warehouse_id', $id)->where('type', '=', 'out')->orderBy('id', 'desc')->get()->toArray();
         $allWarehouses = Warehouse::select('id', 'name')->get()->toArray();
         $warehouses = Warehouse::find($id)->toArray();
+
         return view('stock.index', compact(['stocksIn', 'warehouses', 'allWarehouses', 'stocksOut']));
     }
 

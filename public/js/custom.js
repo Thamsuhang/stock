@@ -17,8 +17,7 @@ $(document).ready(function () {
     $('.data-table').DataTable();
     $('.select2').select2();
     $(function () {
-
-        var table = $('.stock-table').DataTable({
+        $('#stockIn-table').DataTable({
             "order": [],
             'footerCallback': function (row, data, start, end, display) {
                 var api = this.api(), data;
@@ -54,15 +53,33 @@ $(document).ready(function () {
             dom: 'Bfrtip',
             buttons: [
                 {
-                    extend: 'excel',
+                    extend: 'excelHtml5',
+                    title: $('.table-header').text(),
+                    text: '<i class="fa fa-download"></i> Excel',
+                    titleAttr: 'Export Excel',
+                    "oSelectorOpts": {filter: 'applied', order: 'current'},
                     exportOptions: {
-                        columns: "thead th:not(.noExport)"
+                        modifier: {
+                            page: 'all'
+                        },
+                        format: {
+                            header: function ( data, columnIdx ) {
+                                if(columnIdx===1){
+                                    return 'column_1_header';
+                                }
+                                else{
+                                    return data;
+                                }
+                            }
+                        }
                     },
                     className: 'btn btn-success',
                     footer: true
-                },
+                    },
                 {
-                    extend: 'csv',
+                    extend: 'pdf',
+                    title: $('.table-header').text(),
+                    text: '<i class="fa fa-download"></i> PDF',
                     exportOptions: {
                         columns: "thead th:not(.noExport)"
                     },
@@ -71,6 +88,8 @@ $(document).ready(function () {
                 },
                 {
                     extend: 'print',
+                    title: $('.table-header').text(),
+                    text: '<i class="fa fa-print"></i> Print',
                     exportOptions: {
                         columns: "thead th:not(.noExport)"
                     },
@@ -79,7 +98,93 @@ $(document).ready(function () {
                 }
             ]
         });
+        $('.s-out').on('click',function (){
+            console.log($(this).data('is-init'))
+            if($(this).data('is-init') === false) {
+                console.log($(this).data('is-init'))
+                $('#stockOut-table').DataTable({
+                    "order": [],
+                    'footerCallback': function (row, data, start, end, display) {
+                        var api = this.api(), data;
+                        // Remove the formatting to get integer data for summation
+                        var intVal = function (i) {
+                            return typeof i === 'string' ?
+                                i.replace(/[\$,]/g, '') * 1 :
+                                typeof i === 'number' ?
+                                    i : 0;
+                        };
 
+                        // Total over all pages
+                        total = api
+                            .column(2)
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Total over this page
+                        pageTotal = api
+                            .column(2, {page: 'current'})
+                            .data()
+                            .reduce(function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0);
+
+                        // Update footer
+                        $(api.column(2).footer()).html(
+                            pageTotal + ' ( ' + total + ' total)'
+                        );
+                    },
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            title: $('.table-header').text(),
+                            text: '<i class="fa fa-download"></i> Excel',
+                            titleAttr: 'Export Excel',
+                            "oSelectorOpts": {filter: 'applied', order: 'current'},
+                            exportOptions: {
+                                modifier: {
+                                    page: 'all'
+                                },
+                                format: {
+                                    header: function (data, columnIdx) {
+                                        if (columnIdx === 1) {
+                                            return 'column_1_header';
+                                        } else {
+                                            return data;
+                                        }
+                                    }
+                                }
+                            },
+                            className: 'btn btn-success',
+                            footer: true
+                        },
+                        {
+                            extend: 'pdf',
+                            title: $('.table-header').text(),
+                            text: '<i class="fa fa-download"></i> PDF',
+                            exportOptions: {
+                                columns: "thead th:not(.noExport)"
+                            },
+                            className: 'btn btn-success',
+                            footer: true
+                        },
+                        {
+                            extend: 'print',
+                            title: $('.table-header').text(),
+                            text: '<i class="fa fa-print"></i> Print',
+                            exportOptions: {
+                                columns: "thead th:not(.noExport)"
+                            },
+                            className: 'btn btn-success',
+                            footer: true
+                        }
+                    ]
+                });
+                $(this).data('is-init',true);
+            }
+        });
     });
     $(function () {
         labelText=[];
@@ -204,6 +309,28 @@ $(document).ready(function () {
         html2canvas.Util.isTransparent = function(backgroundColor) {
             return (backgroundColor === "transparent" || backgroundColor === "rgba(0, 0, 0, 0)" || backgroundColor === undefined);
         };
+    });
+    $('.create-report').on('click',function(){
+
+       var model = $('.bd-example-modal-lg') ;
+       var parent=$(this).parent();
+       var quantity= $(parent).siblings('.product-quantity').text()
+        var price=$(parent).siblings('.product-price').text()
+        var total=price*quantity;
+       var withVat= (13*total)/100;
+       var netAmount= total+withVat;
+       model.find('.page-header').text($(parent).siblings('.formatted-date').text())
+       model.find('.p-product-name').text($(parent).siblings('.product-title').text())
+       model.find('.p-batch-id').text($(parent).siblings('.batch-id').text())
+       model.find('.p-product-price').text(price)
+       model.find('.p-product-quantity').text(quantity)
+        model.find('.p-total-amount').text(total);
+        model.find('.p-gross-amount').text(total);
+        model.find('.p-vat').text(withVat);
+        model.find('.p-net-amount').text(netAmount);
+    });
+    $('.print-invoice').on('click', function(){
+        $('#p-wrapper').window.print();
     });
 });
 
